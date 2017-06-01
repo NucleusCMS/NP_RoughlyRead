@@ -3,7 +3,7 @@ class NP_RoughlyRead extends NucleusPlugin {
 	function getName()           { return 'Roughly Read'; }
 	function getAuthor()         { return 'Reine'; }
 	function getURL()            { return 'http://japan.nucleuscms.org/wiki/plugins:roughlyread'; }
-	function getVersion()        { return '1.21'; }
+	function getVersion()        { return '1.21.1'; }
 	function getDescription()    {
 		return $this->translated('It begins to pick up the clause including the search words and phrases.\n')
 			. $this->translated('Example. &lt;%RoughlyRead(250,1)%&gt;');
@@ -114,7 +114,7 @@ class NP_RoughlyRead extends NucleusPlugin {
 		$pickesPos = -1;
 		for ($i = 0; $i < count($lines); $i++) {
 			foreach ($highlights as &$highlight) {
-				if (mb_stripos($lines[$i], $highlight, 0, _CHARSET) !== FALSE) {
+				if (!empty($highlight) && mb_stripos($lines[$i], $highlight, 0, _CHARSET) !== FALSE) {
 					if ($pickesPos != -1 && ($pickesPos + 1) < $i) {
 						$cStr .= $this->abbreviation;
 					} elseif ($cStr) {
